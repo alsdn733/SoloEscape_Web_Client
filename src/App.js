@@ -8,6 +8,7 @@ import { BrowserRouter, Route, BrowserHistory, Switch } from 'react-router-dom';
 
 import Main from './views/main/Main';
 import Profile from './views/main/Profile';
+import SignIn from './views/main/SignIn';
 
 class App extends Component {
   render() {
@@ -23,6 +24,8 @@ class App extends Component {
             <div>
               <Route exact path="/" component={Main} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/signin" component={SignIn} />
+             
             </div>
           </BrowserRouter>
         </div>
