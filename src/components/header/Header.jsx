@@ -50,7 +50,7 @@ class Header extends Component {
   };
 
   handleClose = () => {
-    //todo
+    this.setState({ hamburgerOpen: false });
   };
 
 
@@ -71,6 +71,7 @@ class Header extends Component {
               width={200}
               open={this.state.hamburgerOpen}
               onRequestChange={(hamburgerOpen) => this.setState({hamburgerOpen})}
+              onClick={this.handleToggle}
             >
               <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
               <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
