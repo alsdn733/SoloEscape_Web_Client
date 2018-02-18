@@ -9,7 +9,8 @@ import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Switch from 'material-ui/Switch';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Menu, { MenuItem, LeftNav } from 'material-ui/Menu';
+import Drawer from 'material-ui/Drawer';
 
 const styles = {
     root: {
@@ -29,6 +30,7 @@ class Header extends Component {
     state = {
     auth: true,
     anchorEl: null,
+    hamburgerOpen: false
   };
 
   handleChange = (event, checked) => {
@@ -43,6 +45,15 @@ class Header extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleToggle = () => {
+    this.setState({ hamburgerOpen: !this.state.hamburgerOpen });
+  };
+
+  handleClose = () => {
+    //todo
+  };
+
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -52,9 +63,18 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu" onClick={this.handleToggle}>
               <MenuIcon />
             </IconButton>
+            <Drawer
+              docked={false}
+              width={200}
+              open={this.state.hamburgerOpen}
+              onRequestChange={(hamburgerOpen) => this.setState({hamburgerOpen})}
+            >
+              <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
+              <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+            </Drawer>
             <Typography type="title" color="inherit" className={classes.flex}>
               Solo Escape
             </Typography>
