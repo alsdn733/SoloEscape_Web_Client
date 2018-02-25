@@ -5,12 +5,14 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+// import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Switch from 'material-ui/Switch';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Menu, { MenuItem, LeftNav } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
+import 'typeface-roboto';
+
 
 const styles = {
     root: {
@@ -61,9 +63,10 @@ class Header extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" color="#FFFFFF">
+         
           <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu" onClick={this.handleToggle}>
+            {/* <IconButton className={classes.menuButton}  color="#000000" aria-label="Menu" onClick={this.handleToggle}>
               <MenuIcon />
             </IconButton>
             <Drawer
@@ -75,17 +78,21 @@ class Header extends Component {
             >
               <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
               <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
-            </Drawer>
-            <Typography type="title" color="inherit" className={classes.flex}>
+            </Drawer> */}
+            {/* <Typography type="title" color="inherit" align="left" className={classes.flex}>
               Solo Escape
-            </Typography>
+            </Typography> */}
+            <img src={require("../../images/solo.png")} align="left" width="50" height="50"/>
+           
             {auth && (
               <div>
-                <IconButton
+               
+                <IconButton 
+                 
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
-                  color="contrast"
+            
                 >
                   <AccountCircle />
                 </IconButton>
