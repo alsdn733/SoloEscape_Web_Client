@@ -5,31 +5,35 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-// import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Switch from 'material-ui/Switch';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Menu, { MenuItem, LeftNav } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import 'typeface-roboto';
+import Button from 'material-ui/Button';
+import { Link } from 'react-router-dom';
+import history from '../../history'
+
+
 
 
 const styles = {
-    root: {
-        width: '100%',
-    },
-    flex: {
-        flex: 1,
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
+  root: {
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
 };
 
 
 class Header extends Component {
-    state = {
+  state = {
     auth: true,
     anchorEl: null,
     hamburgerOpen: false
@@ -55,6 +59,17 @@ class Header extends Component {
     this.setState({ hamburgerOpen: false });
   };
 
+  handleMenuOnClick = (index) => {
+    if (index == 0)
+      history.push('');
+    else if (index == 1)
+      history.push('/signin');
+    else if (index == 2)
+      history.push('/profile');
+    else if (index == 3)
+      history.push('/partner');
+  };
+
 
   render() {
     const { classes } = this.props;
@@ -64,55 +79,20 @@ class Header extends Component {
     return (
       <div className={classes.root}>
         <AppBar position="static" color="#FFFFFF">
-         
           <Toolbar>
-            {/* <IconButton className={classes.menuButton}  color="#000000" aria-label="Menu" onClick={this.handleToggle}>
-              <MenuIcon />
-            </IconButton>
-            <Drawer
-              docked={false}
-              width={200}
-              open={this.state.hamburgerOpen}
-              onRequestChange={(hamburgerOpen) => this.setState({hamburgerOpen})}
-              onClick={this.handleToggle}
-            >
-              <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-              <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
-            </Drawer> */}
-            {/* <Typography type="title" color="inherit" align="left" className={classes.flex}>
-              Solo Escape
-            </Typography> */}
-            <img src={require("../../images/solo.png")} align="left" width="50" height="50"/>
-           
+            <img src={require("../../images/solo.png")} align="left" width="50" height="50" onClick={() => this.handleMenuOnClick(0)} />
             {auth && (
               <div>
-               
-                <IconButton 
-                 
+                <Button className={classes.button} onClick={() => this.handleMenuOnClick(1)}>Signin</Button>
+                <Button className={classes.button} onClick={() => this.handleMenuOnClick(2)}>Profile</Button>
+                <Button className={classes.button} onClick={() => this.handleMenuOnClick(3)}>Partner</Button>
+                <IconButton
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
-            
                 >
                   <AccountCircle />
                 </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onRequestClose={this.handleRequestClose}
-                >
-                  <MenuItem onClick={this.handleRequestClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleRequestClose}>My account</MenuItem>
-                </Menu>
               </div>
             )}
           </Toolbar>
@@ -126,4 +106,4 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles( styles )( Header );
+export default withStyles(styles)(Header);
