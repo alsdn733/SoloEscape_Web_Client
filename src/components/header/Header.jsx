@@ -11,9 +11,9 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Menu, { MenuItem, LeftNav } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import 'typeface-roboto';
-import Button from 'material-ui/Button';
 import { Link } from 'react-router-dom';
 import history from '../../history'
+import { Button } from 'react-mdl';
 
 
 
@@ -36,7 +36,8 @@ class Header extends Component {
   state = {
     auth: true,
     anchorEl: null,
-    hamburgerOpen: false
+    hamburgerOpen: false,
+    visible: true,
   };
 
   handleChange = (event, checked) => {
@@ -70,11 +71,17 @@ class Header extends Component {
       history.push('/partner');
   };
 
+  hanleLoginClick = (index) => {
+   if(index)
+   this.setState({ visible: false });   
+  };
+
 
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    const { visible } = this.state;
 
     return (
       <div className={classes.root}>
@@ -83,16 +90,22 @@ class Header extends Component {
             <img src={require("../../images/solo.png")} align="left" width="50" height="50" onClick={() => this.handleMenuOnClick(0)} />
             {auth && (
               <div>
-                <Button className={classes.button} onClick={() => this.handleMenuOnClick(1)}>Signin</Button>
-                <Button className={classes.button} onClick={() => this.handleMenuOnClick(2)}>Profile</Button>
-                <Button className={classes.button} onClick={() => this.handleMenuOnClick(3)}>Partner</Button>
+                <Button  style={{marginLeft:'100px'}} onClick={() => this.handleMenuOnClick(1)}>Signin</Button>
+                <Button  onClick={() => this.handleMenuOnClick(2)}>Profile</Button>
+                <Button  onClick={() => this.handleMenuOnClick(3)}>Partner</Button>
+                { visible &&
+                  <Button  onClick={() => this.hanleLoginClick(1)} style={{position: 'absolute', right: 10}} raised accent ripple >Login</Button>
+                }
+                { !visible &&
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
+                  style={{position: 'absolute', right: 10 , bottom: 7}}
                   onClick={this.handleMenu}
                 >
                   <AccountCircle />
                 </IconButton>
+                }
               </div>
             )}
           </Toolbar>
