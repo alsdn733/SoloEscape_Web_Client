@@ -17,12 +17,20 @@ const styles = theme => ({
 
 const Partners = ({
     partners,
+    profiles,
   }) => {
-    return (partners && partners.map) 
+    console.log(5555, profiles)
+    
+    return (partners && partners.map && profiles && profiles.map) 
       ? partners.map((partner, idx) => {
-        return (
+          console.log(222 ,profiles[idx].data[0])
+            var objurl = window.URL.createObjectURL(new Blob([new Uint8Array(profiles[idx].data[0].picture.data)], { type: "image/gif" }));
+            const Img = new Image(200, 200);
+            Img.src = objurl;
+            console.log(444, objurl, Img, profiles[0].data)
+        return (            
             <ListItem key={idx}>
-                <Avatar alt={partner.name} src="http://www.pickywallpapers.com/2560x1600/female-celebrities/emma-watson/emma-watson-black-and-white-profile-wallpaper/download/?get" />
+                <Avatar alt={partner.name} src={objurl} />
                 <ListItemText primary={partner.name} />
                 <ListItemSecondaryAction>
                     <Button fab mini color="primary" aria-label="favorite">
@@ -42,7 +50,7 @@ class SoloItemComponent extends Component {
 
     render() {
         return (
-            <Partners partners={this.props.partners}/>        
+            <Partners partners={this.props.partners} profiles={this.props.profiles} />        
         );
     }
 }
