@@ -19,16 +19,16 @@ const Partners = ({
     partners,
     profiles,
   }) => {
-    console.log(5555, profiles)
     
     return (partners && partners.map && profiles && profiles.map) 
-      ? partners.map((partner, idx) => {
-          console.log(222 ,profiles[idx].data[0])
-            var objurl = window.URL.createObjectURL(new Blob([new Uint8Array(profiles[idx].data[0].picture.data)], { type: "image/gif" }));
+      ? partners.reduce((res, partner, idx) => {
+            if (findMatchedProfile(partner.id, profiles) === null ){
+                return res;
+            }
+            var objurl = window.URL.createObjectURL(new Blob([new Uint8Array(findMatchedProfile(partner.id, profiles).data[0].picture.data)], { type: "image/gif" }));
             const Img = new Image(200, 200);
             Img.src = objurl;
-            console.log(444, objurl, Img, profiles[0].data)
-        return (            
+        res.push(
             <ListItem key={idx}>
                 <Avatar alt={partner.name} src={objurl} />
                 <ListItemText primary={partner.name} />
@@ -39,9 +39,22 @@ const Partners = ({
                 </ListItemSecondaryAction>
             </ListItem>    
         );
-      })
+        return res;
+      }, [])
       : null;
   }
+
+const findMatchedProfile = ((id, profiles) => {
+    for (const profile of profiles) {
+        if (!profile.data[0]) {
+            continue;
+        }
+        if (profile.data[0].id.toString() === id) {
+            return profile;
+        }
+    }
+    return null;
+});
 
 class SoloItemComponent extends Component {
     constructor(props){
