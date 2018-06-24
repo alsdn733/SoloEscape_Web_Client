@@ -48,7 +48,7 @@ class Main extends Component {
         return ( 
             <div>
             <SearchBar
-            value={this.state.textInputValue} onChange={(e) => {this.handleInputChange(e),console.log(this.state.textInputValue)}}
+            value={this.state.textInputValue} onChange={(e) => {this.handleInputChange(e)}}
             onRequestSearch={() => console.log('onRequestSearch')}
             style={{
                 margin: '0 auto',
